@@ -3,6 +3,8 @@ package com.odontologia.entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,5 +51,8 @@ public class Cita extends BaseEntity {
 
   @Column(nullable = false, length = 255)
   private String motivoConsulta;
+
+  @OneToMany(mappedBy = "cita")
+  private List<ProcedimientoRealizado> procedimientosRealizados;
 
 }

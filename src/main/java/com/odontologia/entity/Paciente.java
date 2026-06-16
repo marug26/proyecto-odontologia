@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Paciente extends Persona {
 
-  @Column(length = 20, unique = true)
+  @Column(length = 20)
   private String telefono;
 
   @Column(nullable = false)
@@ -37,6 +37,9 @@ public class Paciente extends Persona {
   @OneToMany(mappedBy = "paciente")
   private List<Cita> citas;
 
-  @OneToOne(mappedBy = "paciente_id")
-  private List<HistoriaClinica> historiasClinicas;
+  @OneToOne(mappedBy = "paciente")
+  private HistoriaClinica historiaClinica;
+
+  @OneToMany(mappedBy = "pacienteFacturado")
+  private List<Factura> facturas;
 }

@@ -2,8 +2,8 @@ package com.odontologia.service;
 
 import com.odontologia.dto.InvoiceRequest;
 import com.odontologia.dto.InvoiceResponse;
-import com.odontologia.entity.Invoice;
-import com.odontologia.entity.InvoiceItem;
+import com.odontologia.entity.Factura;
+import com.odontologia.entity.FacturaDetalle;
 import com.odontologia.repository.InvoiceItemRepository;
 import com.odontologia.repository.InvoiceRepository;
 import com.odontologia.entity.EstadoFactura;
@@ -49,7 +49,7 @@ public class InvoiceService {
     var patient = patientRepository.findById(request.patientId())
         .orElseThrow(() -> new ResourceNotFoundException("Patient", request.patientId()));
 
-    var invoice = new Invoice();
+    var invoice = new Factura();
     invoice.setPatient(patient);
     invoice.setInvoiceNumber(generateInvoiceNumber());
     invoice.setIssueDate(request.issueDate() != null ? request.issueDate() : LocalDate.now());
@@ -64,7 +64,7 @@ public class InvoiceService {
         var itemTotal = itemReq.unitPrice().multiply(BigDecimal.valueOf(itemReq.quantity()));
         subtotal = subtotal.add(itemTotal);
 
-        var item = new InvoiceItem();
+        var item = new FacturaDetalle();
         item.setInvoice(invoice);
         item.setDescription(itemReq.description());
         item.setQuantity(itemReq.quantity());

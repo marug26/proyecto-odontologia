@@ -1,14 +1,14 @@
 package com.odontologia.repository;
 
-import com.odontologia.entity.Invoice;
+import com.odontologia.entity.Factura;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
+public interface InvoiceRepository extends JpaRepository<Factura, UUID> {
 
-  List<Invoice> findByPatientIdOrderByIssueDateDesc(UUID patientId);
+  List<Factura> findByPatientIdOrderByIssueDateDesc(UUID patientId);
 
-  Optional<Invoice> findByInvoiceNumber(String invoiceNumber);
+  Optional<Factura> findByInvoiceNumber(String invoiceNumber);
 }

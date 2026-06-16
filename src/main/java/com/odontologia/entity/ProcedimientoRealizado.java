@@ -3,13 +3,9 @@ package com.odontologia.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,11 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProcedimientoRealizado {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+public class ProcedimientoRealizado extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
@@ -33,7 +25,8 @@ public class ProcedimientoRealizado {
   @JoinColumn(nullable = false)
   private Procedimiento procedimiento;
 
-  @Column(nullable = true)
-  private Short toothNumber;
+  @Column(nullable = true, precision = 2, scale = 0)
+  private Short dienteNumero;
 
 }
+  

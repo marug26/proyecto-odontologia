@@ -1,6 +1,6 @@
 package com.odontologia.dto;
 
-import com.odontologia.entity.Invoice;
+import com.odontologia.entity.Factura;
 import com.odontologia.entity.EstadoFactura;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public record InvoiceResponse(
     String notes,
     OffsetDateTime createdAt
 ) {
-  public static InvoiceResponse from(Invoice invoice) {
+  public static InvoiceResponse from(Factura invoice) {
     return new InvoiceResponse(
         invoice.getId(), invoice.getPatient().getId(), invoice.getPatient().getName(),
         invoice.getInvoiceNumber(), invoice.getIssueDate(), invoice.getDueDate(),

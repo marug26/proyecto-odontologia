@@ -2,7 +2,7 @@ package com.odontologia.service;
 
 import com.odontologia.dto.PaymentRequest;
 import com.odontologia.dto.PaymentResponse;
-import com.odontologia.entity.Invoice;
+import com.odontologia.entity.Factura;
 import com.odontologia.repository.InvoiceRepository;
 import com.odontologia.entity.EstadoFactura;
 import com.odontologia.entity.Payment;
@@ -61,7 +61,7 @@ public class PaymentService {
     return PaymentResponse.from(payment);
   }
 
-  private void updateInvoicePaidAmount(Invoice invoice) {
+  private void updateInvoicePaidAmount(Factura invoice) {
     BigDecimal paid = paymentRepository.findByInvoiceId(invoice.getId()).stream()
         .map(Payment::getAmount)
         .reduce(BigDecimal.ZERO, BigDecimal::add);

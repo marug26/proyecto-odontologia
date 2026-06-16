@@ -2,6 +2,7 @@ package com.odontologia.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,17 +11,18 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "invoice")
+@Table(name = "factura")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Invoice extends BaseEntity {
+public class Factura extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
@@ -44,10 +46,15 @@ public class Invoice extends BaseEntity {
   // @Column(nullable = false, precision = 10, scale = 2)
   // private BigDecimal valor_pagado = BigDecimal.ZERO;
 
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private MetodoPago metodoDePago;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
   private EstadoFactura status = EstadoFactura.PENDIENTE;
+
+  @OneToMany(mappedBy = "factura", fetch = FetchType.LAZY)
+  private List<FacturaDetalle> facturaDetalles;
 
 }

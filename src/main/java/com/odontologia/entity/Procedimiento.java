@@ -1,13 +1,12 @@
 package com.odontologia.entity;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.OneToOne;
-
-
-import java.math.BigDecimal;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,7 @@ import lombok.Setter;
 public class Procedimiento extends BaseEntity {
 
   @Column(nullable = false, unique = true, length = 20)
-  private short codigo;
+  private String codigo;
 
   @Column(nullable = false, length = 200)
   private String nombre;
@@ -30,12 +29,12 @@ public class Procedimiento extends BaseEntity {
   private String descripcion;
 
   @Column(nullable = false)
-  private byte duracionMinutos;
+  private short duracionMinutos;
 
   @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal valor;
 
-  @OneToOne(mappedBy = "procedimiento")
-  private ProcedimientoRealizado procedimientoRealizado;
+  @OneToMany(mappedBy = "procedimiento")
+  private List<ProcedimientoRealizado> procedimientosRealizados;
 
 }
