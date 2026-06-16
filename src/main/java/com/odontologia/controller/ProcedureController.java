@@ -24,7 +24,7 @@ public class ProcedureController {
   }
 
   @GetMapping("/all")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMINISTRADOR')")
   public List<ProcedureResponse> findAllAdmin() {
     return procedureService.findAllAdmin();
   }

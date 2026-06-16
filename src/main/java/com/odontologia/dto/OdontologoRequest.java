@@ -1,15 +1,14 @@
 package com.odontologia.dto;
 
-import com.odontologia.entity.RolEmpleado;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record StaffRequest(
+public record OdontologoRequest(
     @NotBlank String nombres,
     @NotBlank String apellidos,
     @NotBlank @Email String email,
-    @NotNull RolEmpleado rol,
-    @NotBlank String identificacion
+    @NotBlank String identificacion,
+    @NotNull Integer registroProfesional,
+    @NotBlank String especialidad
 ) {}

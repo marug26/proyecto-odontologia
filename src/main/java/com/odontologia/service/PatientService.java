@@ -3,7 +3,6 @@ package com.odontologia.service;
 import com.odontologia.exception.ResourceNotFoundException;
 import com.odontologia.dto.PatientRequest;
 import com.odontologia.dto.PatientResponse;
-import com.odontologia.service.OdontogramValidator;
 import com.odontologia.entity.Paciente;
 import com.odontologia.repository.PatientRepository;
 import java.util.List;
@@ -16,16 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class PatientService {
 
   private final PatientRepository patientRepository;
-  private final OdontogramValidator odontogramValidator;
 
-  public PatientService(PatientRepository patientRepository,
-      OdontogramValidator odontogramValidator) {
+  public PatientService(PatientRepository patientRepository) {
     this.patientRepository = patientRepository;
-    this.odontogramValidator = odontogramValidator;
   }
 
   public List<PatientResponse> findAll() {
-    return patientRepository.findByActiveTrueAndNameContainingIgnoreCase("").stream()
+    return patientRepository.findAll().stream()
         .map(PatientResponse::from)
         .toList();
   }
@@ -33,56 +29,43 @@ public class PatientService {
   public PatientResponse findById(UUID id) {
     return patientRepository.findById(id)
         .map(PatientResponse::from)
-        .orElseThrow(() -> new ResourceNotFoundException("Patient", id));
+        .orElseThrow(() -> new ResourceNotFoundException("Paciente", id));
+  }
+
+  public List<PatientResponse> searchByName(String name) {
+    return patientRepository.findByNombresContainingIgnoreCase(name).stream()
+        .map(PatientResponse::from)
+        .toList();
   }
 
   @Transactional
   public PatientResponse create(PatientRequest request) {
-    odontogramValidator.validate(request.odontogram());
-    var patient = new Paciente();
-    apply(request, patient);
-    return PatientResponse.from(patientRepository.save(patient));
+    var paciente = new Paciente();
+    apply(request, paciente);
+    return PatientResponse.from(patientRepository.save(paciente));
   }
 
   @Transactional
   public PatientResponse update(UUID id, PatientRequest request) {
-    odontogramValidator.validate(request.odontogram());
-    var patient = patientRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Patient", id));
-    apply(request, patient);
-    return PatientResponse.from(patientRepository.save(patient));
+    var paciente = patientRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Paciente", id));
+    apply(request, paciente);
+    return PatientResponse.from(patientRepository.save(paciente));
   }
 
   @Transactional
   public void delete(UUID id) {
-    var patient = patientRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Patient", id));
-    patient.setActive(false);
-    patientRepository.save(patient);
+    patientRepository.deleteById(id);
   }
 
   private void apply(PatientRequest r, Paciente p) {
-    p.setName(r.name());
+    p.setNombres(r.nombres());
+    p.setApellidos(r.apellidos());
     p.setEmail(r.email());
-    p.setPhone(r.phone());
-    p.setBirthDate(r.birthDate());
-    p.setGender(r.gender());
-    p.setCpf(r.cpf());
-    p.setAddressStreet(r.addressStreet());
-    p.setAddressNumber(r.addressNumber());
-    p.setAddressComplement(r.addressComplement());
-    p.setAddressNeighborhood(r.addressNeighborhood());
-    p.setAddressCity(r.addressCity());
-    p.setAddressState(r.addressState());
-    p.setAddressZip(r.addressZip());
-    p.setEmergencyContactName(r.emergencyContactName());
-    p.setEmergencyContactPhone(r.emergencyContactPhone());
-    p.setResponsiblePerson(r.responsiblePerson());
-    p.setMedicalHistory(r.medicalHistory() != null ? r.medicalHistory() : "{}");
-    p.setMedications(r.medications());
-    p.setAllergies(r.allergies());
-    p.setOdontogram(r.odontogram() != null ? r.odontogram() : "{}");
-    p.setNotes(r.notes());
-    p.setActive(true);
+    p.setTelefono(r.telefono());
+    p.setFechaNacimiento(r.fechaNacimiento());
+    p.setDireccion(r.direccion());
+    p.setTipoPaciente(r.tipoPaciente());
+    p.setIdentificacion(r.identificacion());
   }
 }

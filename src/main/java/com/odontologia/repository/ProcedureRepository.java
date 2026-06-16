@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProcedureRepository extends JpaRepository<Procedimiento, UUID> {
 
-  List<Procedimiento> findByActiveTrueOrderByCode();
+  List<Procedimiento> findAllByOrderByCodigo();
 }

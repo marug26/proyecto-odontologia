@@ -1,34 +1,36 @@
 package com.odontologia.dto;
 
-import com.odontologia.entity.Factura;
-import com.odontologia.entity.EstadoFactura;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import com.odontologia.entity.EstadoFactura;
+import com.odontologia.entity.Factura;
+import com.odontologia.entity.MetodoPago;
+
 public record InvoiceResponse(
     UUID id,
-    UUID patientId,
-    String patientName,
-    String invoiceNumber,
-    LocalDate issueDate,
-    LocalDate dueDate,
-    BigDecimal subtotal,
-    BigDecimal discount,
+    UUID pacienteId,
+    String pacienteNombres,
+    String numeroFactura,
+    LocalDate fechaEmision,
     BigDecimal total,
-    BigDecimal paidAmount,
+    MetodoPago metodoDePago,
     EstadoFactura status,
-    String notes,
     OffsetDateTime createdAt
 ) {
-  public static InvoiceResponse from(Factura invoice) {
+  public static InvoiceResponse from(Factura factura) {
     return new InvoiceResponse(
-        invoice.getId(), invoice.getPatient().getId(), invoice.getPatient().getName(),
-        invoice.getInvoiceNumber(), invoice.getIssueDate(), invoice.getDueDate(),
-        invoice.getSubtotal(), invoice.getDiscount(), invoice.getTotal(),
-        invoice.getPaidAmount(), invoice.getStatus(), invoice.getNotes(),
-        invoice.getCreatedAt()
+        factura.getId(),
+        factura.getPacienteFacturado().getId(),
+        factura.getPacienteFacturado().getNombres() + " " + factura.getPacienteFacturado().getApellidos(),
+        factura.getNumeroFactura(),
+        factura.getFechaEmision(),
+        factura.getTotal(),
+        factura.getMetodoDePago(),
+        factura.getEstadoFactura(),
+        factura.getCreatedAt()
     );
   }
 }

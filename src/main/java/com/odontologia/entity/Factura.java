@@ -47,12 +47,12 @@ public class Factura extends BaseEntity {
   // private BigDecimal valor_pagado = BigDecimal.ZERO;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false, name = "metodo_pago", length = 20)
   private MetodoPago metodoDePago;
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false, length = 20)
-  private EstadoFactura status = EstadoFactura.PENDIENTE;
+  @Column(nullable = false, name = "estado_factura", length = 20)
+  private EstadoFactura estadoFactura = EstadoFactura.PENDIENTE;
 
   @OneToMany(mappedBy = "factura", fetch = FetchType.LAZY)
   private List<FacturaDetalle> facturaDetalles;

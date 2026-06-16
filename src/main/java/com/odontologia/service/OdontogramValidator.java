@@ -1,12 +1,14 @@
 package com.odontologia.service;
 
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odontologia.exception.BusinessException;
-import java.time.LocalDate;
-import java.util.Map;
-import java.util.Set;
-import org.springframework.stereotype.Component;
 
 @Component
 public class OdontogramValidator {
@@ -45,7 +47,7 @@ public class OdontogramValidator {
       }
     } catch (BusinessException e) {
       throw e;
-    } catch (Exception e) {
+    } catch (JsonProcessingException e) {
       throw new BusinessException("Invalid odontogram JSON structure");
     }
   }

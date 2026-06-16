@@ -1,27 +1,27 @@
 package com.odontologia.dto;
 
-import com.odontologia.entity.Staff;
+import com.odontologia.entity.Empleado;
 import com.odontologia.entity.RolEmpleado;
 import java.util.UUID;
 
 public record StaffResponse(
     UUID id,
-    String name,
+    String nombres,
+    String apellidos,
     String email,
-    RolEmpleado role,
-    String specialization,
-    String phone,
+    RolEmpleado rol,
+    String identificacion,
     boolean active
 ) {
-  public static StaffResponse from(Staff staff) {
+  public static StaffResponse from(Empleado empleado) {
     return new StaffResponse(
-        staff.getId(),
-        staff.getName(),
-        staff.getEmail(),
-        staff.getRole(),
-        staff.getSpecialization(),
-        staff.getPhone(),
-        staff.isActive()
+        empleado.getId(),
+        empleado.getNombres(),
+        empleado.getApellidos(),
+        empleado.getEmail(),
+        empleado.getRol(),
+        empleado.getIdentificacion(),
+        empleado.isActive()
     );
   }
 }

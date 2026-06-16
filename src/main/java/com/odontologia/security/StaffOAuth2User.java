@@ -1,6 +1,6 @@
 package com.odontologia.security;
 
-import com.odontologia.entity.Staff;
+import com.odontologia.entity.Empleado;
 import java.util.Collection;
 import java.util.Map;
 import lombok.Getter;
@@ -10,11 +10,11 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @Getter
 public class StaffOAuth2User implements OAuth2User {
 
-  private final Staff staff;
+  private final Empleado empleado;
   private final OAuth2User delegate;
 
-  public StaffOAuth2User(Staff staff, OAuth2User delegate) {
-    this.staff = staff;
+  public StaffOAuth2User(Empleado empleado, OAuth2User delegate) {
+    this.empleado = empleado;
     this.delegate = delegate;
   }
 
@@ -25,7 +25,7 @@ public class StaffOAuth2User implements OAuth2User {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return staff.getAuthorities();
+    return empleado.getAuthorities();
   }
 
   @Override

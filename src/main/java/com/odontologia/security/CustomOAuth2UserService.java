@@ -1,6 +1,6 @@
 package com.odontologia.security;
 
-import com.odontologia.entity.Staff;
+import com.odontologia.entity.Empleado;
 import com.odontologia.repository.StaffRepository;
 import java.util.List;
 import org.springframework.core.convert.converter.Converter;
@@ -31,32 +31,32 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     String email = oauth2User.getAttribute("email");
     String googleSub = oauth2User.getAttribute("sub");
 
-    Staff staff = staffRepository.findByGoogleSub(googleSub)
+    Empleado empleado = staffRepository.findByGoogleSub(googleSub)
         .or(() -> staffRepository.findByEmail(email))
         .orElseThrow(() -> new RuntimeException(
             "Access denied: no staff account found for email " + email));
 
-    if (staff.getGoogleSub() == null) {
-      staff.setGoogleSub(googleSub);
-      staffRepository.save(staff);
+    if (empleado.getGoogleSub() == null) {
+      empleado.setGoogleSub(googleSub);
+      staffRepository.save(empleado);
     }
 
-    return new StaffOAuth2User(staff, oauth2User);
+    return new StaffOAuth2User(empleado, oauth2User);
   }
 
   public Converter<Jwt, AbstractAuthenticationToken> jwtConverter() {
     return jwt -> {
       String email = jwt.getClaim("email");
       String googleSub = jwt.getSubject();
-      Staff staff = staffRepository.findByGoogleSub(googleSub)
+      Empleado empleado = staffRepository.findByGoogleSub(googleSub)
           .or(() -> staffRepository.findByEmail(email))
           .orElse(null);
-      if (staff == null) {
+      if (empleado == null) {
         return null;
       }
       List<GrantedAuthority> authorities = List.of(
-          new SimpleGrantedAuthority("ROLE_" + staff.getRole().name()));
-      return new JwtAuthenticationToken(jwt, authorities, staff.getName());
+          new SimpleGrantedAuthority("ROLE_" + empleado.getRol().name()));
+      return new JwtAuthenticationToken(jwt, authorities, empleado.getNombres());
     };
   }
 }

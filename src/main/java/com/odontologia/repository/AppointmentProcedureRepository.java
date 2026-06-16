@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentProcedureRepository extends JpaRepository<ProcedimientoRealizado, UUID> {
 
-  List<ProcedimientoRealizado> findByAppointmentId(UUID appointmentId);
+  List<ProcedimientoRealizado> findByCitaId(UUID citaId);
 }

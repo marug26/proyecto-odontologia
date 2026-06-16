@@ -16,8 +16,8 @@ public class AuditAwareImpl implements AuditorAware<UUID> {
       return Optional.empty();
     }
     Object principal = auth.getPrincipal();
-    if (principal instanceof StaffOAuth2User oauth2User && oauth2User.getStaff() != null) {
-      return Optional.of(oauth2User.getStaff().getId());
+    if (principal instanceof StaffOAuth2User oauth2User && oauth2User.getEmpleado() != null) {
+      return Optional.of(oauth2User.getEmpleado().getId());
     }
     return Optional.empty();
   }

@@ -3,7 +3,7 @@ package com.odontologia.service;
 import com.odontologia.exception.ResourceNotFoundException;
 import com.odontologia.dto.StaffRequest;
 import com.odontologia.dto.StaffResponse;
-import com.odontologia.entity.Staff;
+import com.odontologia.entity.Empleado;
 import com.odontologia.repository.StaffRepository;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +29,7 @@ public class StaffService {
   public StaffResponse findById(UUID id) {
     return staffRepository.findById(id)
         .map(StaffResponse::from)
-        .orElseThrow(() -> new ResourceNotFoundException("Staff", id));
+        .orElseThrow(() -> new ResourceNotFoundException("Empleado", id));
   }
 
   public StaffResponse findMe(UUID id) {
@@ -38,33 +38,33 @@ public class StaffService {
 
   @Transactional
   public StaffResponse create(StaffRequest request) {
-    var staff = new Staff();
-    staff.setName(request.name());
-    staff.setEmail(request.email());
-    staff.setRole(request.role());
-    staff.setSpecialization(request.specialization());
-    staff.setPhone(request.phone());
-    staff.setActive(true);
-    return StaffResponse.from(staffRepository.save(staff));
+    var empleado = new Empleado();
+    empleado.setNombres(request.nombres());
+    empleado.setApellidos(request.apellidos());
+    empleado.setEmail(request.email());
+    empleado.setRol(request.rol());
+    empleado.setIdentificacion(request.identificacion());
+    empleado.setActive(true);
+    return StaffResponse.from(staffRepository.save(empleado));
   }
 
   @Transactional
   public StaffResponse update(UUID id, StaffRequest request) {
-    var staff = staffRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Staff", id));
-    staff.setName(request.name());
-    staff.setEmail(request.email());
-    staff.setRole(request.role());
-    staff.setSpecialization(request.specialization());
-    staff.setPhone(request.phone());
-    return StaffResponse.from(staffRepository.save(staff));
+    var empleado = staffRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Empleado", id));
+    empleado.setNombres(request.nombres());
+    empleado.setApellidos(request.apellidos());
+    empleado.setEmail(request.email());
+    empleado.setRol(request.rol());
+    empleado.setIdentificacion(request.identificacion());
+    return StaffResponse.from(staffRepository.save(empleado));
   }
 
   @Transactional
   public void toggleActive(UUID id) {
-    var staff = staffRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Staff", id));
-    staff.setActive(!staff.isActive());
-    staffRepository.save(staff);
+    var empleado = staffRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Empleado", id));
+    empleado.setActive(!empleado.isActive());
+    staffRepository.save(empleado);
   }
 }

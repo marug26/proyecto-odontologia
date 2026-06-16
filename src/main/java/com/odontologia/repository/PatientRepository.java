@@ -9,5 +9,5 @@ import com.odontologia.entity.Paciente;
 
 public interface PatientRepository extends JpaRepository<Paciente, UUID> {
 
-  List<Paciente> findByActiveTrueAndNameContainingIgnoreCase(String name);
+  List<Paciente> findByNombresContainingIgnoreCase(String nombres);
 }

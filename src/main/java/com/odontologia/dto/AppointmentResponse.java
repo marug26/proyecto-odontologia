@@ -1,39 +1,37 @@
 package com.odontologia.dto;
 
-import com.odontologia.entity.Cita;
-import com.odontologia.entity.EstadoCita;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+import com.odontologia.entity.Cita;
+import com.odontologia.entity.Consultorio;
+import com.odontologia.entity.EstadoCita;
+
 public record AppointmentResponse(
     UUID id,
-    UUID patientId,
-    String patientName,
-    UUID staffId,
-    String staffName,
-    LocalDate appointmentDate,
-    LocalTime startTime,
-    LocalTime endTime,
+    UUID pacienteId,
+    String pacienteNombres,
+    UUID odontologoId,
+    String odontologoNombres,
+    LocalDate fechaCita,
+    LocalTime horaCita,
+    Consultorio consultorioAsignado,
     EstadoCita status,
-    String type,
-    String reason,
-    String notes
+    String motivoConsulta
 ) {
-  public static AppointmentResponse from(Cita appointment) {
+  public static AppointmentResponse from(Cita cita) {
     return new AppointmentResponse(
-        appointment.getId(),
-        appointment.getPatient().getId(),
-        appointment.getPatient().getName(),
-        appointment.getStaff().getId(),
-        appointment.getStaff().getName(),
-        appointment.getAppointmentDate(),
-        appointment.getStartTime(),
-        appointment.getEndTime(),
-        appointment.getStatus(),
-        appointment.getType(),
-        appointment.getReason(),
-        appointment.getNotes()
+        cita.getId(),
+        cita.getPaciente().getId(),
+        cita.getPaciente().getNombres() + " " + cita.getPaciente().getApellidos(),
+        cita.getOdontologo().getId(),
+        cita.getOdontologo().getNombres() + " " + cita.getOdontologo().getApellidos(),
+        cita.getFechaCita(),
+        cita.getHoraCita(),
+        cita.getConsultorioAsignado(),
+        cita.getEstadoCita(),
+        cita.getMotivoConsulta()
     );
   }
 }

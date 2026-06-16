@@ -9,5 +9,5 @@ import com.odontologia.entity.FacturaDetalle;
 
 public interface InvoiceItemRepository extends JpaRepository<FacturaDetalle, UUID> {
 
-  List<FacturaDetalle> findByInvoiceId(UUID invoiceId);
+  List<FacturaDetalle> findByFacturaId(UUID facturaId);
 }

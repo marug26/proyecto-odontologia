@@ -30,8 +30,7 @@ public class InvoiceController {
   public ResponseEntity<InvoiceResponse> create(@PathVariable UUID patientId,
       @Valid @RequestBody InvoiceRequest request) {
     var actualRequest = new InvoiceRequest(
-        patientId, request.issueDate(), request.dueDate(),
-        request.discount(), request.notes(), request.items()
+        patientId, request.fechaEmision(), request.items()
     );
     var response = invoiceService.create(actualRequest);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

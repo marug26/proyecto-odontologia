@@ -1,11 +1,12 @@
 package com.odontologia.service;
 
-import com.odontologia.entity.Procedimiento;
-import com.odontologia.repository.ProcedureRepository;
-import com.odontologia.dto.ProcedureResponse;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.odontologia.dto.ProcedureResponse;
+import com.odontologia.repository.ProcedureRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +19,7 @@ public class ProcedureService {
   }
 
   public List<ProcedureResponse> findAll() {
-    return procedureRepository.findByActiveTrueOrderByCode().stream()
+    return procedureRepository.findAllByOrderByCodigo().stream()
         .map(ProcedureResponse::from)
         .toList();
   }

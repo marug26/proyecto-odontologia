@@ -2,7 +2,6 @@ package com.odontologia.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -47,7 +46,7 @@ public class Cita extends BaseEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
-  private EstadoCita status = EstadoCita.PROGRAMADA;
+  private EstadoCita estadoCita = EstadoCita.PROGRAMADA;
 
   @Column(nullable = false, length = 255)
   private String motivoConsulta;

@@ -1,24 +1,21 @@
 package com.odontologia.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotNull;
+
 public record InvoiceRequest(
-    @NotNull UUID patientId,
-    LocalDate issueDate,
-    LocalDate dueDate,
-    @PositiveOrZero BigDecimal discount,
-    String notes,
-    List<InvoiceItemRequest> items
+    @NotNull UUID pacienteId,
+    @NotNull LocalDate fechaEmision,
+    @NotNull List<InvoiceItemRequest> items
 ) {
 
   public record InvoiceItemRequest(
-      @NotNull String description,
-      @NotNull Short quantity,
-      @NotNull BigDecimal unitPrice
+      @NotNull String descripcion,
+      @NotNull Short cantidad,
+      @NotNull BigDecimal valorUnitario
   ) {}
 }

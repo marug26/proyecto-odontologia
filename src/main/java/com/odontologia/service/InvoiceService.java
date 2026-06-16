@@ -1,21 +1,23 @@
 package com.odontologia.service;
 
-import com.odontologia.dto.InvoiceRequest;
-import com.odontologia.dto.InvoiceResponse;
-import com.odontologia.entity.Factura;
-import com.odontologia.entity.FacturaDetalle;
-import com.odontologia.repository.InvoiceItemRepository;
-import com.odontologia.repository.InvoiceRepository;
-import com.odontologia.entity.EstadoFactura;
-import com.odontologia.exception.BusinessException;
-import com.odontologia.exception.ResourceNotFoundException;
-import com.odontologia.repository.PatientRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.odontologia.dto.InvoiceRequest;
+import com.odontologia.dto.InvoiceResponse;
+import com.odontologia.entity.EstadoFactura;
+import com.odontologia.entity.Factura;
+import com.odontologia.entity.FacturaDetalle;
+import com.odontologia.exception.BusinessException;
+import com.odontologia.exception.ResourceNotFoundException;
+import com.odontologia.repository.InvoiceItemRepository;
+import com.odontologia.repository.InvoiceRepository;
+import com.odontologia.repository.PatientRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,61 +37,56 @@ public class InvoiceService {
   public InvoiceResponse findById(UUID id) {
     return invoiceRepository.findById(id)
         .map(InvoiceResponse::from)
-        .orElseThrow(() -> new ResourceNotFoundException("Invoice", id));
+        .orElseThrow(() -> new ResourceNotFoundException("Factura", id));
   }
 
   public List<InvoiceResponse> findByPatient(UUID patientId) {
-    return invoiceRepository.findByPatientIdOrderByIssueDateDesc(patientId).stream()
+    return invoiceRepository.findByPacienteFacturadoIdOrderByFechaEmisionDesc(patientId).stream()
         .map(InvoiceResponse::from)
         .toList();
   }
 
   @Transactional
   public InvoiceResponse create(InvoiceRequest request) {
-    var patient = patientRepository.findById(request.patientId())
-        .orElseThrow(() -> new ResourceNotFoundException("Patient", request.patientId()));
+    var paciente = patientRepository.findById(request.pacienteId())
+        .orElseThrow(() -> new ResourceNotFoundException("Paciente", request.pacienteId()));
 
-    var invoice = new Factura();
-    invoice.setPatient(patient);
-    invoice.setInvoiceNumber(generateInvoiceNumber());
-    invoice.setIssueDate(request.issueDate() != null ? request.issueDate() : LocalDate.now());
-    invoice.setDueDate(request.dueDate());
-    invoice.setDiscount(request.discount() != null ? request.discount() : BigDecimal.ZERO);
-    invoice.setNotes(request.notes());
-    invoice.setStatus(EstadoFactura.PENDING);
+    var factura = new Factura();
+    factura.setPacienteFacturado(paciente);
+    factura.setNumeroFactura(generateInvoiceNumber());
+    factura.setFechaEmision(request.fechaEmision());
+    factura.setMetodoDePago(null);
+    factura.setEstadoFactura(EstadoFactura.PENDIENTE);
 
-    BigDecimal subtotal = BigDecimal.ZERO;
-    if (request.items() != null) {
+    BigDecimal total = BigDecimal.ZERO;
+
       for (var itemReq : request.items()) {
-        var itemTotal = itemReq.unitPrice().multiply(BigDecimal.valueOf(itemReq.quantity()));
-        subtotal = subtotal.add(itemTotal);
+        var itemTotal = itemReq.valorUnitario().multiply(BigDecimal.valueOf(itemReq.cantidad()));
+        total = total.add(itemTotal);
 
         var item = new FacturaDetalle();
-        item.setInvoice(invoice);
-        item.setDescription(itemReq.description());
-        item.setQuantity(itemReq.quantity());
-        item.setUnitPrice(itemReq.unitPrice());
+        item.setFactura(factura);
+        item.setDescripcion(itemReq.descripcion());
+        item.setCantidad(itemReq.cantidad());
+        item.setValorUnitario(itemReq.valorUnitario());
         item.setTotal(itemTotal);
         invoiceItemRepository.save(item);
       }
-    }
 
-    invoice.setSubtotal(subtotal);
-    invoice.setTotal(subtotal.subtract(invoice.getDiscount()));
-    invoice.setPaidAmount(BigDecimal.ZERO);
+    factura.setTotal(total);
 
-    return InvoiceResponse.from(invoiceRepository.save(invoice));
+    return InvoiceResponse.from(invoiceRepository.save(factura));
   }
 
   @Transactional
   public void cancel(UUID id) {
-    var invoice = invoiceRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Invoice", id));
-    if (invoice.getStatus() == EstadoFactura.PAID) {
-      throw new BusinessException("Cannot cancel a paid invoice");
+    var factura = invoiceRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Factura", id));
+    if (factura.getEstadoFactura() == EstadoFactura.PAGADO) {
+      throw new BusinessException("No se puede cancelar una factura pagada");
     }
-    invoice.setStatus(EstadoFactura.CANCELLED);
-    invoiceRepository.save(invoice);
+    factura.setEstadoFactura(EstadoFactura.CANCELADO);
+    invoiceRepository.save(factura);
   }
 
   private String generateInvoiceNumber() {

@@ -6,20 +6,20 @@ import java.util.UUID;
 
 public record ProcedureResponse(
     UUID id,
-    String code,
-    String name,
-    String description,
-    String category,
-    Integer defaultDurationMinutes,
-    BigDecimal defaultFee,
-    boolean active
+    String codigo,
+    String nombre,
+    String descripcion,
+    Short duracionMinutos,
+    BigDecimal valor
 ) {
-  public static ProcedureResponse from(Procedimiento procedure) {
+  public static ProcedureResponse from(Procedimiento procedimiento) {
     return new ProcedureResponse(
-        procedure.getId(), procedure.getCode(), procedure.getName(),
-        procedure.getDescription(), procedure.getCategory(),
-        procedure.getDefaultDurationMinutes(), procedure.getDefaultFee(),
-        procedure.isActive()
+        procedimiento.getId(),
+        procedimiento.getCodigo(),
+        procedimiento.getNombre(),
+        procedimiento.getDescripcion(),
+        procedimiento.getDuracionMinutos(),
+        procedimiento.getValor()
     );
   }
 }

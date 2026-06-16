@@ -1,28 +1,17 @@
 package com.odontologia.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import com.odontologia.entity.TipoPaciente;
 
 public record PatientRequest(
-    @NotBlank String name,
+    @NotBlank String nombres,
+    @NotBlank String apellidos,
     String email,
-    String phone,
-    LocalDate birthDate,
-    String gender,
-    String cpf,
-    String addressStreet,
-    String addressNumber,
-    String addressComplement,
-    String addressNeighborhood,
-    String addressCity,
-    String addressState,
-    String addressZip,
-    String emergencyContactName,
-    String emergencyContactPhone,
-    String responsiblePerson,
-    String medicalHistory,
-    String medications,
-    String allergies,
-    String odontogram,
-    String notes
+    String telefono,
+    @NotNull LocalDate fechaNacimiento,
+    String direccion,
+    @NotNull TipoPaciente tipoPaciente,
+    String identificacion
 ) {}
