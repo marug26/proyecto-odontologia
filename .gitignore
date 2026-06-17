@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Archivos de configuración local ###
+.env
+.env.*
+**/.env
+/odontologiaDemo/database/.env
+/database/.env
+database/.env

@@ -1,6 +1,5 @@
 package com.odontologia.config;
 
-import com.odontologia.security.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.odontologia.security.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +26,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
         .csrf(csrf -> csrf.disable())
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/procedures").permitAll()
@@ -39,4 +40,15 @@ public class SecurityConfig {
         )
         .build();
   }
+
+  // @Override
+  // public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
+  //   OAuth2user oauthUser = super.loadUser(userRequest);
+  //   // Aquí puedes realizar cualquier lógica adicional con el usuario autenticado, como asignar roles o permisos personalizados.
+  //   System.out.println("Usuario autenticado: " + oauthUser.getName());
+  //   System.out.println("Atributos del usuario: " + oauthUser.getAttributes());
+
+  //   return oauthUser;
+  // }
 }

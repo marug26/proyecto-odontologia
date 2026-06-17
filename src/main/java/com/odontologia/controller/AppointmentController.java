@@ -22,7 +22,7 @@ import com.odontologia.service.AppointmentService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/appointments")
+@RequestMapping("/api/citas")
 public class AppointmentController {
 
   private final AppointmentService appointmentService;

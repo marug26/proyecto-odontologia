@@ -20,6 +20,7 @@ import com.odontologia.service.PatientService;
 
 import jakarta.validation.Valid;
 
+
 @RestController
 @RequestMapping("/api/pacientes")
 public class PatientController {
@@ -57,4 +58,11 @@ public class PatientController {
     patientService.delete(id);
     return ResponseEntity.noContent().build();
   }
+
+  // ! api de prueba
+  @GetMapping("/hello")
+  public String sayHello() {
+      return "Hello, World!";
+  }
+  
 }

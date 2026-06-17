@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -17,8 +19,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Odontologo extends Empleado {
 
-  @Column(nullable = false, unique = true, length = 255)
+  @Column(nullable = false, unique = true)
   private Integer registroProfesional;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private TipoOdontologo tipo;
 
   @Column(length = 100, nullable = false)
   private String especialidad;

@@ -14,10 +14,10 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        "[format_sql]": true
         jdbc:
           lob:
-            non_contextual_creation: true
+            "[non_contextual_creation]": true
     open-in-view: false
 
   security:
@@ -55,8 +55,8 @@ spring:
 
 logging:
   level:
-    com.odontologia: DEBUG
-    org.springframework.security: DEBUG
+    "[com.odontologia]": DEBUG
+    "[org.springframework.security]": DEBUG
 
 ---
 spring:
@@ -69,4 +69,5 @@ spring:
 
 logging:
   level:
-    com.odontologia: INFO
+    "[com.odontologia]": INFO
+    "[org.springframework.security]": INFO
