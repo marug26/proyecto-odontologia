@@ -39,3 +39,8 @@ build/
 /odontologiaDemo/database/.env
 /database/.env
 database/.env
+
+*/application-local.yml
+/odontologiaDemo/src/main/resources/application-local.yml
+# así se hace:
+src/main/resources/application-local.yml
