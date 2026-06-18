@@ -40,6 +40,7 @@
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/entity/Procedimiento.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/entity/ProcedimientoRealizado.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/entity/RolEmpleado.java
+/home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/entity/TipoOdontologo.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/entity/TipoPaciente.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/exception/BusinessException.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/exception/GlobalExceptionHandler.java

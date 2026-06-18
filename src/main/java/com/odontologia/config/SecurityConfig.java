@@ -41,14 +41,4 @@ public class SecurityConfig {
         .build();
   }
 
-  // @Override
-  // public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
-  //   OAuth2user oauthUser = super.loadUser(userRequest);
-  //   // Aquí puedes realizar cualquier lógica adicional con el usuario autenticado, como asignar roles o permisos personalizados.
-  //   System.out.println("Usuario autenticado: " + oauthUser.getName());
-  //   System.out.println("Atributos del usuario: " + oauthUser.getAttributes());
-
-  //   return oauthUser;
-  // }
 }
