@@ -20,8 +20,24 @@ spring:
             "[non_contextual_creation]": true
     open-in-view: false
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: openid,profile,email
+
 server:
   port: 8080
+
+app:
+  frontend:
+    url: http://localhost:5173
+  jwt:
+    secret: ${JWT_SECRET:odontologia-demo-jwt-secret-key-at-least-32-bytes}
+    expiration-minutes: 60
 
 springdoc:
   api-docs:

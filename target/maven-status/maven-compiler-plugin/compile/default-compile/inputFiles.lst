@@ -56,6 +56,8 @@
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/repository/StaffRepository.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/security/AuthenticatedStaff.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/security/CustomOAuth2UserService.java
+/home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/security/JwtTokenService.java
+/home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/security/OAuth2LoginSuccessHandler.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/security/StaffOAuth2User.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/service/AppointmentService.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/service/HistoriaClinicaService.java
