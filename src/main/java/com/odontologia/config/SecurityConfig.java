@@ -1,8 +1,10 @@
 package com.odontologia.config;
 
 import java.nio.charset.StandardCharsets;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,10 +42,11 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
         .csrf(csrf -> csrf.disable())
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/procedures").permitAll()
+            .requestMatchers(HttpMethod.GET, "/").permitAll()
             .anyRequest().authenticated()
         )
         .oauth2Login(oauth2 -> oauth2

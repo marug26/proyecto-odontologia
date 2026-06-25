@@ -36,6 +36,12 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     Empleado empleado = resolveEmpleado(oauthToken);
 
     String token = jwtTokenService.generateToken(empleado);
+
+    jakarta.servlet.http.HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+
     response.sendRedirect(frontendUrl + "/auth/callback#token=" + token);
   }
 

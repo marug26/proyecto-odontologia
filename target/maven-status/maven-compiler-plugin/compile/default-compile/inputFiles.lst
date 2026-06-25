@@ -5,6 +5,7 @@
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/config/WebConfig.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/AppointmentController.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/HistoriaClinicaController.java
+/home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/IndexController.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/InvoiceController.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/OdontologoController.java
 /home/marcela/Documentos/proyectos/odontologiaDemo/odontologiaDemo/src/main/java/com/odontologia/controller/PatientController.java

@@ -3,6 +3,7 @@ package com.odontologia.security;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,7 +15,11 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.stereotype.Service;
 
-import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.OctetSequenceKey;
+import com.nimbusds.jose.jwk.KeyUse;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.odontologia.entity.Empleado;
@@ -31,7 +36,12 @@ public class JwtTokenService {
     this.expirationMinutes = expirationMinutes;
     SecretKey key = new SecretKeySpec(
         secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-    JWKSource<SecurityContext> source = new ImmutableSecret<>(key);
+    OctetSequenceKey jwk = new OctetSequenceKey.Builder(key)
+        .keyUse(KeyUse.SIGNATURE)
+        .algorithm(JWSAlgorithm.HS256)
+        .keyID("jwt-signing-key")
+        .build();
+    JWKSource<SecurityContext> source = new ImmutableJWKSet<>(new JWKSet(jwk));
     this.jwtEncoder = new NimbusJwtEncoder(source);
   }
 

@@ -47,10 +47,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
   public Converter<Jwt, AbstractAuthenticationToken> jwtConverter() {
     return jwt -> {
       String email = jwt.getClaim("email");
-      String googleSub = jwt.getSubject();
-      Empleado empleado = staffRepository.findByGoogleSub(googleSub)
-          .or(() -> staffRepository.findByEmail(email))
-          .orElse(null);
+      Empleado empleado = staffRepository.findByEmail(email).orElse(null);
       if (empleado == null) {
         return null;
       }
