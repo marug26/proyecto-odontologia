@@ -1,17 +1,20 @@
 package com.odontologia.security;
 
-import com.odontologia.entity.Empleado;
-import com.odontologia.repository.StaffRepository;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.odontologia.entity.Empleado;
+import com.odontologia.repository.StaffRepository;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
@@ -44,6 +47,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     response.sendRedirect(frontendUrl + "/auth/callback#token=" + token);
   }
+  // el trabajo de autenticación termina y redirige al frontend.
 
   private Empleado resolveEmpleado(OAuth2AuthenticationToken oauthToken) {
     Object principal = oauthToken.getPrincipal();

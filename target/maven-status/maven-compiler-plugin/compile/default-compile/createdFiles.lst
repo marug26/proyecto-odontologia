@@ -5,6 +5,7 @@ com/odontologia/controller/ProcedureController.class
 com/odontologia/dto/OdontologoResponse.class
 com/odontologia/dto/AppointmentStatusRequest.class
 com/odontologia/entity/BaseEntity.class
+com/odontologia/security/OAuth2LoginSuccessHandler.class
 com/odontologia/controller/HistoriaClinicaController.class
 com/odontologia/dto/InvoiceRequest$InvoiceItemRequest.class
 com/odontologia/config/OpenApiConfig.class
@@ -26,6 +27,7 @@ com/odontologia/controller/StaffController.class
 com/odontologia/service/HistoriaClinicaService.class
 com/odontologia/controller/InvoiceController.class
 com/odontologia/entity/Paciente.class
+com/odontologia/controller/IndexController.class
 com/odontologia/entity/Odontologo.class
 com/odontologia/controller/PatientController.class
 com/odontologia/service/ProcedureService.class
@@ -61,6 +63,7 @@ com/odontologia/service/OdontologoService.class
 com/odontologia/repository/AppointmentProcedureRepository.class
 com/odontologia/dto/InvoiceResponse.class
 com/odontologia/dto/HistoriaClinicaRequest.class
+com/odontologia/security/JwtTokenService.class
 com/odontologia/controller/AppointmentController.class
 com/odontologia/config/WebConfig.class
 com/odontologia/OdontologiaDemoApplication.class

@@ -1,5 +1,6 @@
 package com.odontologia.config;
 
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import javax.crypto.SecretKey;
@@ -28,14 +29,17 @@ public class SecurityConfig {
   private final CustomOAuth2UserService oauth2UserService;
   private final OAuth2LoginSuccessHandler successHandler;
   private final String jwtSecret;
+  private final String frontendUrl;
 
   public SecurityConfig(
       CustomOAuth2UserService oauth2UserService,
       OAuth2LoginSuccessHandler successHandler,
-      @Value("${app.jwt.secret}") String jwtSecret) {
+      @Value("${app.jwt.secret}") String jwtSecret,
+      @Value("${app.frontend.url:http://localhost:5173}") String frontendUrl) {
     this.oauth2UserService = oauth2UserService;
     this.successHandler = successHandler;
     this.jwtSecret = jwtSecret;
+    this.frontendUrl = frontendUrl;
   }
 
   @Bean
@@ -52,6 +56,10 @@ public class SecurityConfig {
         .oauth2Login(oauth2 -> oauth2
             .userInfoEndpoint(userInfo -> userInfo.userService(oauth2UserService))
             .successHandler(successHandler)
+            .failureHandler((request, response, exception) -> {
+                response.sendRedirect(frontendUrl + "/auth/callback#error=" +
+                    URLEncoder.encode(exception.getMessage(), StandardCharsets.UTF_8));
+            })
         )
         .oauth2ResourceServer(resource -> resource
             .jwt(jwt -> jwt
